@@ -1,14 +1,15 @@
-import React, {useContext} from 'react'
-import {MovieContext} from "./MovieContext"
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { CartCountContext } from "./context/CartCountContext";
 
 const Nav = () => {
-    const [movies,setMovies] = useContext(MovieContext)
-    return (
-        <header>
-            <h3>INOC DAVE</h3>
-            <p>LIST OF MOVIES: {movies.length}</p>
-        </header>
-    )
-}
+  const [cartCount, setCartCount] = useContext(CartCountContext);
+  return (
+    <header>
+      <Link to="/">DAVE's KITCHEN</Link>
+      <Link to="/cart">CART: {cartCount.length}</Link>
+    </header>
+  );
+};
 
-export default Nav
+export default Nav;
