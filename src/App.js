@@ -1,28 +1,19 @@
 import "./App.css";
-import Nav from "./Nav";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Thankyou from "./pages/Thankyou";
-import { ProductProvider } from "./context/ProductContext";
-import { CartCountProvider } from "./context/CartCountContext";
+import { useSelector, useDispatch } from "react-redux";
+import { increment, decrement } from "./actions";
 
 function App() {
+  const counter = useSelector((state) => state.counter);
+  const isLogged = useSelector((state) => state.isLogged);
+  const dispatch = useDispatch();
+
   return (
-    <ProductProvider>
-      <CartCountProvider>
-        <Router basename={process.env.PUBLIC_URL}>
-          <div>
-            <Nav />
-            <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/cart" exact component={Cart} />
-              <Route path="/thankyou" exact component={Thankyou} />
-            </Switch>
-          </div>
-        </Router>
-      </CartCountProvider>
-    </ProductProvider>
+    <>
+      <h1>Counter {counter}</h1>
+      <button onClick={() => dispatch(increment(5))}>+</button>
+      <button onClick={() => dispatch(decrement())}>-</button>
+      {isLogged ? <h3>Valuebale information</h3> : ""}
+    </>
   );
 }
 
