@@ -1,11 +1,9 @@
-import counterReducer from "./counter";
-import loggedReducer from "./isLogged";
-
 import { combineReducers } from "redux";
 
-const allReducers = combineReducers({
-  counter: counterReducer,
-  isLogged: loggedReducer,
+import moviesReducer from "./moviesReducer";
+
+const rootReducer = combineReducers({
+  movies: moviesReducer,
 });
 
-export default allReducers;
+export default rootReducer;

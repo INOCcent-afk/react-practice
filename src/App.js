@@ -1,19 +1,33 @@
+import React, { useEffect } from "react";
 import "./App.css";
-import { useSelector, useDispatch } from "react-redux";
-import { increment, decrement } from "./actions";
+import Movie from "./components/Movie";
+import Nav from "./components/Nav";
+import AddMovie from "./components/AddMovies";
+import { useDispatch, useSelector } from "react-redux";
+import { loadMovies } from "./actions/movieActions";
 
 function App() {
-  const counter = useSelector((state) => state.counter);
-  const isLogged = useSelector((state) => state.isLogged);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(loadMovies());
+  }, [dispatch]);
+
+  const { movies } = useSelector((state) => state.movies);
+
   return (
-    <>
-      <h1>Counter {counter}</h1>
-      <button onClick={() => dispatch(increment(5))}>+</button>
-      <button onClick={() => dispatch(decrement())}>-</button>
-      {isLogged ? <h3>Valuebale information</h3> : ""}
-    </>
+    <div className="App">
+      <Nav />
+      <AddMovie />
+      {movies.map((movie) => (
+        <Movie
+          name={movie.name}
+          price={movie.price}
+          key={movie.id}
+          id={movie.id}
+        />
+      ))}
+    </div>
   );
 }
 
